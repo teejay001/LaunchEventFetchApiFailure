@@ -20,6 +20,7 @@ module.exports = async (env, options) => {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
       taskpane: ["./src/taskpane/taskpane.js", "./src/taskpane/taskpane.html"],
       commands: "./src/commands/commands.js",
+      launchevent: "./src/launchevent/launchevent.js",
     },
     output: {
       clean: true,
@@ -57,14 +58,10 @@ module.exports = async (env, options) => {
       new HtmlWebpackPlugin({
         filename: "taskpane.html",
         template: "./src/taskpane/taskpane.html",
-        chunks: ["polyfill", "taskpane"],
+        chunks: ["polyfill", "taskpane", "launchevent"],
       }),
       new CopyWebpackPlugin({
         patterns: [
-          {
-            from: "./src/launchevent/launchevent.js",
-            to: "launchevent.js",
-          },
           {
             from: "assets/*",
             to: "assets/[name][ext][query]",
@@ -85,7 +82,7 @@ module.exports = async (env, options) => {
       new HtmlWebpackPlugin({
         filename: "commands.html",
         template: "./src/commands/commands.html",
-        chunks: ["polyfill", "commands"],
+        chunks: ["polyfill", "commands", "launchevent"],
       }),
     ],
     devServer: {
